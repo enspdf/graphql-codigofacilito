@@ -4,7 +4,7 @@ const User = require("../models/user");
 module.exports = {
   Query: {
     async getCourses(obj, { page, limit }) {
-      let courses = Course.find().populate("user");
+      let courses = Course.find();
 
       if (page !== undefined) {
         courses = courses.limit(limit).skip((page - 1) * limit);
@@ -37,6 +37,11 @@ module.exports = {
       return {
         message: `El curso con id ${id} fue eliminado`
       };
+    }
+  },
+  Course: {
+    async user(c) {
+      return await User.findById(c.user);
     }
   }
 };
