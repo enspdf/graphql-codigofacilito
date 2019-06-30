@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const Course = require('../models/course');
+const Course = require("../models/course");
 
 module.exports = {
   Query: {
@@ -15,6 +15,15 @@ module.exports = {
       const user = new User(input);
       await user.save();
       return user;
+    },
+    async logIn(obj, { input }) {
+      try {
+        const user = User.authenticate(input);
+        return user;
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
     }
   },
   User: {
